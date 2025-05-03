@@ -1,14 +1,19 @@
-import React from "react";
 import { Tabs } from "expo-router";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-export default function MainLayout() {
+import { MaterialIcons } from '@expo/vector-icons';
+import React from "react";
+
+export default function AuthLayout() {
   return (
     <Tabs
-      initialRouteName="Login"
+      initialRouteName="login"
       screenOptions={{
         tabBarActiveTintColor: "#1689b9",
         tabBarInactiveTintColor: "gray",
-      
+        tabBarStyle: {
+          backgroundColor: "white",
+          borderTopWidth: 1,
+          borderTopColor: "#e5e5e5",
+        },
         headerStyle: {
           backgroundColor: "#1689b9",
         },
@@ -19,20 +24,20 @@ export default function MainLayout() {
       }}
     >
       <Tabs.Screen
-        name="Login"
+        name="login"
         options={{
-          title: "Logga in",
+          title: "Hem",
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="login" size={size} color={color} />
+            <MaterialIcons name="home" size={size} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="Signup"
+        name="signup"
         options={{
-          title: "Skapa konto",
+          title: "profil",
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="person-add" size={size} color={color} />
+            <MaterialIcons name="person" size={size} color={color} />
           ),
         }}
       />

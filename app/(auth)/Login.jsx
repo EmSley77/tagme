@@ -1,17 +1,17 @@
-import { useRouter } from "expo-router";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { useRouter } from "expo-router";
+import React, { useEffect, useState } from "react";
 import {
+  KeyboardAvoidingView,
+  Platform,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
-  KeyboardAvoidingView,
-  ScrollView,
-  Platform,
 } from "react-native";
-import { useEffect, useState } from "react";
 
 export default function Login() {
   const [email, setEmail] = useState("test@test.com");
@@ -72,7 +72,7 @@ export default function Login() {
             />
             <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
               <MaterialIcons
-                name={showPassword ? "visibility-off" : "visibility"}
+                name={showPassword ? "visibility" : "visibility-off"}
                 size={24}
                 color="black"
               />

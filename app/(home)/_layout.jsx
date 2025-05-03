@@ -58,19 +58,6 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="Login"
-        options={{
-          tabBarStyle: {
-            display: "none",
-          },
-          href: null,
-          title: "Logga in",
-          tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="settings" size={size} color={color} />
-          ),
-        }}
-      />
     </Tabs>
   );
 }
