@@ -27,11 +27,7 @@ const RootLayout = () => {
   }
 
   /* This is the main layout that will show the login screen if the user is logged in*/
-  return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-    </Stack>
-  );
+  return <Stack screenOptions={{ headerShown: false }} />;
 };
 
 export default RootLayout;

@@ -6,7 +6,7 @@ export default function TabLayout() {
     <Tabs
       initialRouteName="index"
       screenOptions={{
-        tabBarActiveTintColor: "0a5075",
+        tabBarActiveTintColor: "#1689b9",
         tabBarInactiveTintColor: "gray",
         tabBarStyle: {
           backgroundColor: "white",
@@ -14,7 +14,7 @@ export default function TabLayout() {
           borderTopColor: "#e5e5e5",
         },
         headerStyle: {
-          backgroundColor: "#0a5075",
+          backgroundColor: "#1689b9",
         },
         headerTintColor: "#fff",
         headerTitleStyle: {
