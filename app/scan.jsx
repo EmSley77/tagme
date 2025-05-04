@@ -1,40 +1,51 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { router } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function ScanScreen() {
-    const [facing, setFacing] = useState('back');
-    const [permission, requestPermission] = useCameraPermissions();
 
-    if (!permission) {
-        // Camera permissions are still loading.
-        return <View />;
-    }
-    const handleBarcodeScanned = (result) => {
-        console.log(result);
-        if (result.type === 'qr') {
-            console.log(result.data);
+    //TODO: fix open page to profile after correct scan if nothing available reject and redo scan with message
+    const [permission, requestPermission] = useCameraPermissions();
+    const [scanned, setScanned] = useState(false);
+
+    const lastScanTime = useRef(null); // Keep track of the last scan time
+
+    useEffect(() => {
+        if (scanned) {
+            setScanned(true);
+            const timer = setTimeout(() => {
+                setScanned(false);
+            }, 3000);
+            return () => clearTimeout(timer);
         }
-    }
+    }, [scanned]);
+
+    const handleBarcodeScanned = (result) => {
+
+        const currentTime = new Date().getTime();
+
+        // Allow scan only if 5 seconds have passed since the last scan
+        if (lastScanTime.current && currentTime - lastScanTime.current < 5000) {
+            return; // Prevent scan if it's less than 5 seconds
+        }
+
+        if (result.type === 'qr') {
+            // Only push the result if it's a valid QR code
+            router.push(`/visit/${result.data}`);
+            lastScanTime.current = currentTime; // Update the last scan time to set the current time as the last scan time
+            setScanned(true);
+        }
+    };
+
+    if (!permission) return <View />;
 
     if (!permission.granted) {
-        // Camera permissions are not granted yet.
         return (
-            <View style={styles.container}>
+            <View style={styles.centered}>
                 <Text style={styles.message}>Vi behöver ditt tillstånd för att visa kamera</Text>
-                <TouchableOpacity style={{
-                    backgroundColor: '#111',
-                    borderWidth: 2,
-                    borderColor: '#f7ca90',
-                    borderRadius: 32,
-                    padding: 10,
-                    marginTop: 20,
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}
-                    onPress={requestPermission} >
+                <TouchableOpacity style={styles.permissionButton} onPress={requestPermission}>
                     <Text style={styles.text}>Ge tillstånd</Text>
                 </TouchableOpacity>
             </View>
@@ -43,52 +54,57 @@ export default function ScanScreen() {
 
     return (
         <View style={styles.container}>
-            <CameraView style={styles.camera} facing={facing} barcodeScannerSettings={{ barcodeTypes: ['qr'] }} onBarcodeScanned={(result) => handleBarcodeScanned(result)}>
-                <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.button} onPress={() => router.back()}>
-                        <MaterialIcons name="arrow-back" size={40} color="white" />
-                    </TouchableOpacity>
-                </View>
-            </CameraView>
+            <CameraView
+                style={StyleSheet.absoluteFillObject}
+                facing="back"
+                barcodeScannerSettings={{ barcodeTypes: ['qr'] }}
+                onBarcodeScanned={handleBarcodeScanned}
+            />
+            <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+                <MaterialIcons name="arrow-back" size={40} color="white" />
+            </TouchableOpacity>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#333',
         flex: 1,
+        backgroundColor: '#000',
+        justifyContent: 'flex-end',
+    },
+    centered: {
+        flex: 1,
+        backgroundColor: '#333',
+        alignItems: 'center',
         justifyContent: 'center',
+        padding: 20,
     },
     message: {
-        textAlign: 'center',
-        paddingBottom: 10,
-        fontSize: 20,
+        fontSize: 18,
         color: '#f7ca90',
+        textAlign: 'center',
     },
-    camera: {
-        flex: 1,
-    },
-    buttonContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        backgroundColor: 'transparent',
-
-        margin: 64,
-    },
-    button: {
-        flex: 1,
-        alignSelf: 'flex-end',
-        alignItems: 'center',
-        borderRadius: 32,
-        borderWidth: 2,
-        borderColor: '#f7ca90',
+    permissionButton: {
+        marginTop: 20,
         backgroundColor: '#111',
-        padding: 10,
+        borderColor: '#f7ca90',
+        borderWidth: 2,
+        borderRadius: 32,
+        padding: 12,
+    },
+    backButton: {
+        alignSelf: 'center',
+        margin: 24,
+        backgroundColor: '#111',
+        borderColor: '#f7ca90',
+        borderWidth: 2,
+        borderRadius: 32,
+        padding: 8,
     },
     text: {
-        fontSize: 24,
+        fontSize: 20,
+        color: '#fff',
         fontWeight: 'bold',
-        color: 'white',
     },
 });
