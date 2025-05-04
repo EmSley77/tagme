@@ -1,11 +1,12 @@
 import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
   ScrollView,
   StyleSheet,
+  Alert,
   Text,
   TextInput,
   TouchableOpacity,
@@ -22,7 +23,7 @@ export default function Signup() {
 
   const handleSignup = () => {
     if (!email || !password || !namn || !phone) {
-      setError("Fyll i alla fält");
+      Alert.alert("Fyll i alla fält");
       return;
     }
 
@@ -30,6 +31,14 @@ export default function Signup() {
     console.log({ email, password, namn, telefon: phone });
     router.replace("/home");
   };
+
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        setError("");
+      }, 3000);
+    }
+  }, [error]);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -70,7 +79,7 @@ export default function Signup() {
             onChangeText={setPassword}
           />
           <TouchableOpacity style={styles.button} onPress={handleSignup}>
-            <Text style={styles.buttonText}>Skapa konto</Text>
+            <Text style={styles.buttonText}>Gå Med</Text>
           </TouchableOpacity>
           <Text style={styles.error}>{error}</Text>
         </ScrollView>
@@ -82,6 +91,7 @@ export default function Signup() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
+    backgroundColor: "#444", // same background color as login
   },
   container: {
     flexGrow: 1,
@@ -94,7 +104,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     width: "80%",
-    borderColor: "#8ec3b3",
+    borderColor: "#f7ca90", // matching light turquoise
+    backgroundColor: "#ffffff", // white input for contrast
+    color: "#333",
     marginBottom: 15,
   },
   button: {
@@ -102,17 +114,24 @@ const styles = StyleSheet.create({
     width: "80%",
     height: 45,
     borderRadius: 10,
-    backgroundColor: "#4d918f",
+    backgroundColor: "#111", // same dark button color as login
+    borderWidth: 2,
+    borderColor: "#f7ca90", // light turquoise
     justifyContent: "center",
     alignItems: "center",
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 3,
   },
   buttonText: {
-    color: "white",
+    color: "#f7ca89", // matching light gold color
     fontSize: 16,
     fontWeight: "bold",
   },
   error: {
     marginTop: 10,
-    color: "red",
+    color: "#ff4c4c", // softer red for error
   },
 });

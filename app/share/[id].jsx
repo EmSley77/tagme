@@ -2,6 +2,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
+import { MaterialIcons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function ShareScreen() {
@@ -39,7 +40,7 @@ export default function ShareScreen() {
           </View>
 
           <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-            <Text style={styles.backButtonText}>← Tillbaka</Text>
+            <MaterialIcons name="arrow-back" size={24} color="#f7ca90" />
           </TouchableOpacity>
         </>
       )}
@@ -50,7 +51,7 @@ export default function ShareScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e6f4f1', // mjukare bakgrund
+    backgroundColor: '#444', // mjukare bakgrund
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 24,
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: '700',
     marginBottom: 30,
-    color: '#17494d', // mörkare blågrön
+    color: '#f7ca89', // mörkare blågrön
   },
   qrWrapper: {
     backgroundColor: '#ffffff',
@@ -73,7 +74,9 @@ const styles = StyleSheet.create({
   },
   backButton: {
     marginTop: 40,
-    backgroundColor: '#0f766e', // djup turkosgrön
+    backgroundColor: '#111', // djup turkosgrön
+    borderWidth: 2,
+    borderColor: '#f7ca90',
     paddingVertical: 14,
     paddingHorizontal: 28,
     borderRadius: 32,

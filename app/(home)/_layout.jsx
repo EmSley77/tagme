@@ -9,14 +9,14 @@ export default function TabLayout() {
         tabBarActiveTintColor: "#f7ca89",
         tabBarInactiveTintColor: "#aaa",
         tabBarStyle: {
-          backgroundColor: "#285e61", // djup grön-blå
+          backgroundColor: "#111", // djup grön-blå
         },
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: "600",
         },
         headerStyle: {
-          backgroundColor: "#285e61", // mörkare topp
+          backgroundColor: "#111", // mörkare topp
         },
         headerTintColor: "#ffffff",
         headerTitleStyle: {

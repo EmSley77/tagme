@@ -22,43 +22,50 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Modal to show phone number */}
-      <Modal
-        animationType="slide"
-        visible={showModal}
-        onRequestClose={() => setShowModal(false)}
-      >
-        <View style={styles.modalContainer}>
-          <Text style={styles.modalText}>{phoneNumber}</Text>
-          <TouchableOpacity style={styles.closeButton} onPress={() => setShowModal(false)}>
-            <Text style={styles.closeButtonText}>Stäng</Text>
+      <View style={{ paddingHorizontal: 20, flex: 1 }}>
+
+        {/* Modal to show phone number */}
+        <Modal
+          animationType="fade"
+          visible={showModal}
+          onRequestClose={() => setShowModal(false)}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalTextContainer}>
+              <MaterialIcons name="phone" size={40} color="#f7ca90" />
+              <Text style={styles.modalText}>{phoneNumber}</Text>
+
+            </View>
+            <TouchableOpacity style={styles.closeButton} onPress={() => setShowModal(false)}>
+              <MaterialIcons name="close" size={35} color="#f7ca90" />
+            </TouchableOpacity>
+          </View>
+        </Modal>
+        <FlatList
+          data={links}
+          keyExtractor={(item) => item.id.toString()}
+          contentContainerStyle={styles.list}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.card}
+              activeOpacity={0.9}
+              onPress={() => router.push(`/share/${item.id}`)}
+            >
+              <View style={styles.cardContent}>
+                <Text style={styles.title}>{item.title}</Text>
+                <MaterialIcons name="qr-code" size={26} color="#f7ca90" />
+              </View>
+            </TouchableOpacity>
+          )}
+        />
+        <View style={styles.footer}>
+          <TouchableOpacity style={styles.footerButton} onPress={() => setShowModal(true)}>
+            <MaterialIcons name="phone" size={40} color="#f7ca90" />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.footerButton} onPress={() => router.push('/create')}>
+            <MaterialIcons name="add" size={40} color="#f7ca90" />
           </TouchableOpacity>
         </View>
-      </Modal>
-      <FlatList
-        data={links}
-        keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={styles.list}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.card}
-            activeOpacity={0.9}
-            onPress={() => router.push(`/share/${item.id}`)}
-          >
-            <View style={styles.cardContent}>
-              <Text style={styles.title}>{item.title}</Text>
-              <MaterialIcons name="qr-code" size={26} color="#8ec3b0" />
-            </View>
-          </TouchableOpacity>
-        )}
-      />
-      <View style={styles.footer}>
-        <TouchableOpacity style={styles.footerButton} onPress={() => setShowModal(true)}>
-          <MaterialIcons name="phone" size={40} color="#f7ca90" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.footerButton} onPress={() => router.push('/create')}>
-          <MaterialIcons name="add" size={40} color="#f7ca90" />
-        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -67,23 +74,17 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#edf2f4',
+    backgroundColor: "#444", // White background for a clean, modern feel
     paddingHorizontal: 20,
   },
-  header: {
-    fontSize: 28,
-    fontWeight: '700',
-    color: '#2D3748',
-    marginBottom: 32,
-    textAlign: 'center',
-  },
   list: {
-    paddingHorizontal: 10,
     paddingTop: 20,
   },
   card: {
-    backgroundColor: '#478778',
-    borderRadius: 50,
+    borderWidth: 2,
+    borderColor: '#f7ca90', // Charcoal gray for a soft border contrast
+    backgroundColor: '#333', // Light gray background to keep it subtle
+    borderRadius: 50, // Slightly less rounded for a more modern feel
     paddingVertical: 24,
     paddingHorizontal: 28,
     marginBottom: 18,
@@ -100,38 +101,34 @@ const styles = StyleSheet.create({
   },
   title: {
     letterSpacing: 1,
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#FFF', // Darker text color to ensure readability
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    fontSize: 20,
-    fontWeight: '600',
-    // color: '#0a507c',
-    color: '#fff',
   },
   footer: {
-    backgroundColor: '#1689b9',
+    backgroundColor: '#1A1A1A', // Dark gray footer for contrast
     borderRadius: 50,
-    paddingHorizontal: 10,
-    width: '95%',
-    alignSelf: 'center',
-    paddingVertical: 10,
+    borderWidth: 2,
+    borderColor: '#E0E0E0', // Light gray border to complement footer
+    padding: 10,
     marginBottom: 15,
-    marginTop: 15,
-    display: 'flex',
+    marginTop: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 20,
   },
   footerText: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#1689b9',
+    color: '#FFFFFF', // White text for a clean footer
   },
   footerButton: {
-    backgroundColor: '#0a507c',
+    backgroundColor: '#333333', // Dark button to contrast with the footer
     padding: 10,
     borderRadius: 30,
   },
@@ -139,30 +136,44 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#4d918f',
+    backgroundColor: "#444", // Light background for modals
     padding: 20,
   },
   modalText: {
     fontSize: 30,
     letterSpacing: 1,
     fontWeight: 'bold',
-    color: 'white',
-    backgroundColor: '#6dcf81',
-    padding: 20,
-    borderRadius: 12,
+    color: '#fff', // Dark text color to keep the focus
+  },
+  modalTextContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    backgroundColor: '#333', // Lighter gray background for modal content
+    borderWidth: 2,
+    borderColor: '#FFF', // Slightly darker border for distinction
+    padding: 10,
+    borderRadius: 10,
+    justifyContent: 'center',
     marginBottom: 20,
-    textAlign: 'center',
   },
   closeButton: {
-    backgroundColor: '#8ec3b3',
+    borderWidth: 2,
+    borderColor: '#f7ca90',
+    backgroundColor: '#111', // Darker button background
+    opacity: 0.8,
     paddingVertical: 12,
     paddingHorizontal: 24,
-    borderRadius: 10,
+    borderRadius: 50,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 3,
   },
   closeButtonText: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#fff',
+    color: '#FFFFFF', // White text on the button for contrast
   },
 });
-

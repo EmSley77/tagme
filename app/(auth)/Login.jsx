@@ -9,6 +9,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  Alert,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -22,7 +23,7 @@ export default function Login() {
 
   const handleLogin = () => {
     if (email === "" || password === "") {
-      setError("Fyll i alla fält");
+      Alert.alert("Fyll i alla fält");
       return;
     }
     if (email === "test@test.com" && password === "test") {
@@ -45,6 +46,7 @@ export default function Login() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
+      
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
@@ -82,62 +84,68 @@ export default function Login() {
           <TouchableOpacity style={styles.button} onPress={handleLogin}>
             <Text style={styles.buttonText}>Logga in</Text>
           </TouchableOpacity>
-          <Text style={styles.error}>{error}</Text>
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
-
 const styles = StyleSheet.create({
   safeArea: {
+    backgroundColor: "#444",
     flex: 1,
   },
   container: {
-    flexGrow: 1,
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
     paddingBottom: 40,
+    paddingHorizontal: 20, // Add some horizontal padding
   },
   input: {
     borderWidth: 2,
-    width: "80%",
     borderRadius: 10,
-    padding: 10,
-    height: 45,
-    marginBottom: 20,
-    borderColor: "#8ec3b3",  // Green border color
+    padding: 12,
+    borderColor: "#f7ca90", // Light turquoise
+    backgroundColor: "#ffffff", // White input for contrast
+    marginBottom: 15,
+    width: "100%", // Ensure it takes full width
   },
   passwordContainer: {
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 2,
     borderRadius: 10,
-    width: "80%",
     height: 45,
-    paddingHorizontal: 10,
+    paddingHorizontal: 12,
     marginBottom: 20,
-    borderColor: "#8ec3b3",  // Green border color
+    borderColor: "#f7ca90", // Light turquoise
+    backgroundColor: "#ffffff", // White input for contrast
+    width: "100%", // Ensure it takes full width
   },
   passwordInput: {
     flex: 1,
+    color: "#000",
   },
   button: {
-    marginTop: 10,
-    width: "80%",
+    marginTop: 20,
     height: 45,
     borderRadius: 10,
-    backgroundColor: "#4d918f",  // Bright green button color
+    backgroundColor: "#111",
+    borderWidth: 2,
+    borderColor: "#f7ca90",
     justifyContent: "center",
     alignItems: "center",
+    width: "100%", // Ensure it takes full width
+    padding: 10,
   },
   buttonText: {
-    color: "white",
+    color: "#f7ca89",
     fontSize: 16,
     fontWeight: "bold",
   },
   error: {
     marginTop: 10,
-    color: "#D32F2F",  // Red color for error messages
+    color: "#ff4c4c", // Slightly softer red for errors
+    textAlign: "center",
   },
 });

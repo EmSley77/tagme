@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { Alert, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Alert, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function Create() {
     const [title, setTitle] = useState('');
@@ -20,7 +21,7 @@ export default function Create() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView style={styles.scrollView}>
+            <View style={{paddingHorizontal: 20}}>
 
                 <Text style={styles.header}>Lägg till ny länk</Text>
 
@@ -44,9 +45,9 @@ export default function Create() {
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-                    <Text style={styles.backButtonText}>← Tillbaka</Text>
+                    <MaterialIcons name="arrow-back" size={24} color="#f7ca89" />
                 </TouchableOpacity>
-            </ScrollView>
+            </View>
         </SafeAreaView>
     );
 }
@@ -55,17 +56,14 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        backgroundColor: '#e5f7f2',
-        justifyContent: 'center',
-    },
-    scrollView: {
-        paddingHorizontal: 20,
-    },
+        justifyContent: 'center',        
+        backgroundColor: '#444',
+    },  
     header: {
         fontSize: 24,
         fontWeight: '700',
         marginBottom: 30,
-        color: '#004d40',
+        color: '#f7ca89',
         textAlign: 'center',
     },
     input: {
@@ -73,13 +71,15 @@ const styles = StyleSheet.create({
         paddingVertical: 14,
         paddingHorizontal: 18,
         borderRadius: 8,
-        borderColor: '#b0bec5',
+        borderColor: '#8ec3b3',
         borderWidth: 1,
         marginBottom: 18,
         fontSize: 16,
     },
     button: {
-        backgroundColor: '#00796b',
+        borderWidth: 2,
+        borderColor: '#f7ca90',
+        backgroundColor: '#111',
         paddingVertical: 16,
         alignItems: 'center',
         borderRadius: 30,
@@ -92,11 +92,13 @@ const styles = StyleSheet.create({
     },
     backButton: {
         marginTop: 20,
-        backgroundColor: '#004d40',
+        borderWidth: 2,
+        borderColor: '#f7ca90',
+        backgroundColor: '#111',
         paddingVertical: 16,
         paddingHorizontal: 32,
         borderRadius: 30,
-        alignItems: 'center',
+        alignSelf: 'flex-start',
     },
     backButtonText: {
         color: '#ffffff',
