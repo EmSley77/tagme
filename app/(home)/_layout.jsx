@@ -6,17 +6,19 @@ export default function TabLayout() {
     <Tabs
       initialRouteName="index"
       screenOptions={{
-        tabBarActiveTintColor: "#1689b9",
-        tabBarInactiveTintColor: "gray",
+        tabBarActiveTintColor: "#f7ca89",
+        tabBarInactiveTintColor: "#aaa",
         tabBarStyle: {
-          backgroundColor: "white",
-          borderTopWidth: 1,
-          borderTopColor: "#e5e5e5",
+          backgroundColor: "#285e61", // djup grön-blå
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: "600",
         },
         headerStyle: {
-          backgroundColor: "#1689b9",
+          backgroundColor: "#285e61", // mörkare topp
         },
-        headerTintColor: "#fff",
+        headerTintColor: "#ffffff",
         headerTitleStyle: {
           fontWeight: "bold",
         },
@@ -25,7 +27,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Hem",
+          title: "Mina Länkar",
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="home" size={size} color={color} />
           ),
@@ -34,18 +36,9 @@ export default function TabLayout() {
       <Tabs.Screen
         name="profile"
         options={{
-          title: "profil",
+          title: "Mitt Konto",
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="person" size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="share"
-        options={{
-          title: "Dela",
-          tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="share" size={size} color={color} />
           ),
         }}
       />

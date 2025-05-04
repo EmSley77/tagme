@@ -8,6 +8,7 @@ const RootLayout = () => {
 
   const router = useRouter();
 
+  //TODO: check if user is logged in
   useEffect(() => {
     // Simulate checking for user session
     const timeout = setTimeout(() => {
