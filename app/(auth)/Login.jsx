@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
     padding: 10,
     height: 45,
     marginBottom: 20,
+    borderColor: "#8ec3b3",  // Green border color
   },
   passwordContainer: {
     flexDirection: "row",
@@ -116,6 +117,7 @@ const styles = StyleSheet.create({
     height: 45,
     paddingHorizontal: 10,
     marginBottom: 20,
+    borderColor: "#8ec3b3",  // Green border color
   },
   passwordInput: {
     flex: 1,
@@ -125,7 +127,7 @@ const styles = StyleSheet.create({
     width: "80%",
     height: 45,
     borderRadius: 10,
-    backgroundColor: "#1689b9",
+    backgroundColor: "#4d918f",  // Bright green button color
     justifyContent: "center",
     alignItems: "center",
   },
@@ -136,6 +138,6 @@ const styles = StyleSheet.create({
   },
   error: {
     marginTop: 10,
-    color: "red",
+    color: "#D32F2F",  // Red color for error messages
   },
 });

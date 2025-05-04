@@ -1,16 +1,20 @@
 import { MaterialIcons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 import { useState } from 'react';
 import {
-  SafeAreaView,
   FlatList,
+  Modal,
+  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import { router } from 'expo-router';
 
 export default function HomeScreen() {
+
+  const [showModal, setShowModal] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState('1234567890');
   const [links] = useState([
     { id: 1, title: 'LinkedIn', url: 'https://www.linkedin.com/in/emanuel-sleyman-660552293/' },
     { id: 2, title: 'GitHub', url: 'https://github.com/EmSley77' },
@@ -18,6 +22,20 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Modal to show phone number */}
+
+      <Modal
+        animationType="slide"
+        visible={showModal}
+        onRequestClose={() => setShowModal(false)}
+      >
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalText}>{phoneNumber}</Text>
+          <TouchableOpacity style={styles.closeButton} onPress={() => setShowModal(false)}>
+            <Text style={styles.closeButtonText}>Stäng</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
       <FlatList
         data={links}
         keyExtractor={(item) => item.id.toString()}
@@ -37,7 +55,11 @@ export default function HomeScreen() {
         )}
       />
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.footerButton}>
+
+        <TouchableOpacity style={styles.footerButton} onPress={() => setShowModal(true)}>
+          <MaterialIcons name="phone" size={40} color="#f7ca90" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.footerButton} onPress={() => router.push('/create')}>
           <MaterialIcons name="add" size={40} color="#f7ca90" />
         </TouchableOpacity>
       </View>
@@ -99,7 +121,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: 20,
   },
@@ -112,6 +134,34 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5907b',
     padding: 10,
     borderRadius: 30,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#c2fbc2',
+    padding: 20,
+  },
+  modalText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
+    backgroundColor: '#6dcf81',
+    padding: 20,
+    borderRadius: 12,
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  closeButton: {
+    backgroundColor: '#4d918f',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 10,
+  },
+  closeButtonText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#fff',
   },
 
 });

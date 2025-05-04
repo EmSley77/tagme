@@ -7,17 +7,19 @@ export default function AuthLayout() {
     <Tabs
       initialRouteName="login"
       screenOptions={{
-        tabBarActiveTintColor: "#1689b9",
-        tabBarInactiveTintColor: "gray",
+        tabBarActiveTintColor: "#f7ca89",
+        tabBarInactiveTintColor: "#aaa",
         tabBarStyle: {
-          backgroundColor: "white",
-          borderTopWidth: 1,
-          borderTopColor: "#e5e5e5",
+          backgroundColor: "#285e61", // djup grön-blå
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: "600",
         },
         headerStyle: {
-          backgroundColor: "#1689b9",
+          backgroundColor: "#285e61", // mörkare topp
         },
-        headerTintColor: "#fff",
+        headerTintColor: "#ffffff",
         headerTitleStyle: {
           fontWeight: "bold",
         },
