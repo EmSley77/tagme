@@ -14,12 +14,16 @@ import {
 export default function HomeScreen() {
 
   const [showModal, setShowModal] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState('1234567890');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [links] = useState([
     { id: 1, title: 'LinkedIn', url: 'https://www.linkedin.com/in/emanuel-sleyman-660552293/' },
     { id: 2, title: 'GitHub', url: 'https://github.com/EmSley77' },
   ]);
 
+  const user = {
+    id: 1,
+    name: 'Emanuel Sleyman',
+  }
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ paddingHorizontal: 20, flex: 1 }}>
@@ -35,6 +39,21 @@ export default function HomeScreen() {
               <MaterialIcons name="phone" size={40} color="#f7ca90" />
               <Text style={styles.modalText}>{phoneNumber}</Text>
 
+            </View>
+            <TouchableOpacity style={styles.closeButton} onPress={() => setShowModal(false)}>
+              <MaterialIcons name="close" size={35} color="#f7ca90" />
+            </TouchableOpacity>
+          </View>
+        </Modal>
+        <Modal
+          animationType="fade"
+          visible={showModal}
+          onRequestClose={() => setShowModal(false)}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalTextContainer}>
+              <MaterialIcons name="phone" size={40} color="#f7ca90" />
+              <Text style={styles.modalText}>{phoneNumber}</Text>
             </View>
             <TouchableOpacity style={styles.closeButton} onPress={() => setShowModal(false)}>
               <MaterialIcons name="close" size={35} color="#f7ca90" />
@@ -59,9 +78,13 @@ export default function HomeScreen() {
           )}
         />
         <View style={styles.footer}>
-          <TouchableOpacity style={styles.footerButton} onPress={() => setShowModal(true)}>
-            <MaterialIcons name="phone" size={40} color="#f7ca90" />
+          <TouchableOpacity style={styles.footerButton} onPress={() => {
+            if (!phoneNumber) return
+            setShowModal(true)
+          }}>
+            <MaterialIcons name="account-circle" size={40} color="#f7ca90" />
           </TouchableOpacity>
+
           <TouchableOpacity style={styles.footerButton} onPress={() => router.push('/create')}>
             <MaterialIcons name="add" size={40} color="#f7ca90" />
           </TouchableOpacity>
@@ -74,7 +97,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#444", // White background for a clean, modern feel
+    backgroundColor: "#333", // White background for a clean, modern feel
     paddingHorizontal: 20,
   },
   list: {
@@ -83,7 +106,7 @@ const styles = StyleSheet.create({
   card: {
     borderWidth: 2,
     borderColor: '#f7ca90', // Charcoal gray for a soft border contrast
-    backgroundColor: '#333', // Light gray background to keep it subtle
+    backgroundColor: '#222', // Light gray background to keep it subtle
     borderRadius: 50, // Slightly less rounded for a more modern feel
     paddingVertical: 24,
     paddingHorizontal: 28,
@@ -136,7 +159,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: "#444", // Light background for modals
+    backgroundColor: "#333", // Light background for modals
     padding: 20,
   },
   modalText: {
@@ -149,7 +172,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
-    backgroundColor: '#333', // Lighter gray background for modal content
+    backgroundColor: '#111', // Lighter gray background for modal content
     borderWidth: 2,
     borderColor: '#FFF', // Slightly darker border for distinction
     padding: 10,

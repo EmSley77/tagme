@@ -51,7 +51,7 @@ export default function ShareScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#444', // mjukare bakgrund
+    backgroundColor: '#333', // mjukare bakgrund
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 24,
