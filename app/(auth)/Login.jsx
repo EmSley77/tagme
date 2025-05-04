@@ -23,7 +23,7 @@ export default function Login() {
 
   const handleLogin = () => {
     if (email === "" || password === "") {
-      Alert.alert("Fyll i alla fält");
+      Alert.alert("Inloggning misslyckades", "Fyll i alla fält");
       return;
     }
     if (email === "test@test.com" && password === "test") {
@@ -46,7 +46,7 @@ export default function Login() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      
+
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 20,
     height: 45,
-    borderRadius: 10,
+    borderRadius: 32,
     backgroundColor: "#111",
     borderWidth: 2,
     borderColor: "#f7ca90",

@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: "80%",
     height: 45,
-    borderRadius: 10,
+    borderRadius: 32,
     backgroundColor: "#111", // same dark button color as login
     borderWidth: 2,
     borderColor: "#f7ca90", // light turquoise

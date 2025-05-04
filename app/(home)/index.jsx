@@ -10,14 +10,24 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import QRCode from 'react-native-qrcode-svg';
 
 export default function HomeScreen() {
 
   const [showModal, setShowModal] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState('');
   const [links] = useState([
-    { id: 1, title: 'LinkedIn', url: 'https://www.linkedin.com/in/emanuel-sleyman-660552293/' },
-    { id: 2, title: 'GitHub', url: 'https://github.com/EmSley77' },
+    {
+      id: 1,
+      title: 'LinkedIn',
+      url: 'https://www.linkedin.com/in/emanuel-sleyman-660552293/',
+      is_private: false
+    },
+    {
+      id: 2,
+      title: 'GitHub',
+      url: 'https://github.com/EmSley77',
+      is_private: false
+    },
   ]);
 
   const user = {
@@ -36,30 +46,15 @@ export default function HomeScreen() {
         >
           <View style={styles.modalContainer}>
             <View style={styles.modalTextContainer}>
-              <MaterialIcons name="phone" size={40} color="#f7ca90" />
-              <Text style={styles.modalText}>{phoneNumber}</Text>
+              <Text style={styles.modalText}>Profil</Text>
+              <QRCode value={"https://www.linkedin.com/in/emanuel-sleyman-660552293/"} size={200} color="#f7ca90" />
+            </View>
+            <TouchableOpacity style={styles.closeButton} onPress={() => setShowModal(false)}>
+              <MaterialIcons name="close" size={35} color="#f7ca90" />
+            </TouchableOpacity>
+          </View>
+        </Modal>
 
-            </View>
-            <TouchableOpacity style={styles.closeButton} onPress={() => setShowModal(false)}>
-              <MaterialIcons name="close" size={35} color="#f7ca90" />
-            </TouchableOpacity>
-          </View>
-        </Modal>
-        <Modal
-          animationType="fade"
-          visible={showModal}
-          onRequestClose={() => setShowModal(false)}
-        >
-          <View style={styles.modalContainer}>
-            <View style={styles.modalTextContainer}>
-              <MaterialIcons name="phone" size={40} color="#f7ca90" />
-              <Text style={styles.modalText}>{phoneNumber}</Text>
-            </View>
-            <TouchableOpacity style={styles.closeButton} onPress={() => setShowModal(false)}>
-              <MaterialIcons name="close" size={35} color="#f7ca90" />
-            </TouchableOpacity>
-          </View>
-        </Modal>
         <FlatList
           data={links}
           keyExtractor={(item) => item.id.toString()}
@@ -79,11 +74,16 @@ export default function HomeScreen() {
         />
         <View style={styles.footer}>
           <TouchableOpacity style={styles.footerButton} onPress={() => {
-            if (!phoneNumber) return
             setShowModal(true)
           }}>
             <MaterialIcons name="account-circle" size={40} color="#f7ca90" />
           </TouchableOpacity>
+
+          {/* Open camera to scan profile ID */}
+          <TouchableOpacity style={styles.footerButton} onPress={() => router.push("/scan")}>
+            <MaterialIcons name="qr-code" size={40} color="#f7ca90" />
+          </TouchableOpacity>
+
 
           <TouchableOpacity style={styles.footerButton} onPress={() => router.push('/create')}>
             <MaterialIcons name="add" size={40} color="#f7ca90" />
@@ -169,7 +169,6 @@ const styles = StyleSheet.create({
     color: '#fff', // Dark text color to keep the focus
   },
   modalTextContainer: {
-    flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
     backgroundColor: '#111', // Lighter gray background for modal content
