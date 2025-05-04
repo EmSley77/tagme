@@ -23,7 +23,6 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
       {/* Modal to show phone number */}
-
       <Modal
         animationType="slide"
         visible={showModal}
@@ -48,14 +47,12 @@ export default function HomeScreen() {
           >
             <View style={styles.cardContent}>
               <Text style={styles.title}>{item.title}</Text>
-              {/* <MaterialIcons name="qr-code" size={26} color="#4d918f" /> */}
               <MaterialIcons name="qr-code" size={26} color="#8ec3b0" />
             </View>
           </TouchableOpacity>
         )}
       />
       <View style={styles.footer}>
-
         <TouchableOpacity style={styles.footerButton} onPress={() => setShowModal(true)}>
           <MaterialIcons name="phone" size={40} color="#f7ca90" />
         </TouchableOpacity>
@@ -69,11 +66,9 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
     flex: 1,
     backgroundColor: '#edf2f4',
-    paddingHorizontal: 24,
-    paddingTop: 60,
+    paddingHorizontal: 20,
   },
   header: {
     fontSize: 28,
@@ -83,12 +78,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   list: {
+    paddingHorizontal: 10,
     paddingTop: 20,
-    paddingHorizontal: 20,
-    paddingBottom: 40,
   },
   card: {
-    backgroundColor: '#4d918f',
+    backgroundColor: '#478778',
     borderRadius: 50,
     paddingVertical: 24,
     paddingHorizontal: 28,
@@ -117,8 +111,14 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   footer: {
-    paddingHorizontal: 20,
+    backgroundColor: '#1689b9',
+    borderRadius: 50,
+    paddingHorizontal: 10,
+    width: '95%',
+    alignSelf: 'center',
     paddingVertical: 10,
+    marginBottom: 15,
+    marginTop: 15,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -128,10 +128,10 @@ const styles = StyleSheet.create({
   footerText: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#2D3748',
+    color: '#1689b9',
   },
   footerButton: {
-    backgroundColor: '#f5907b',
+    backgroundColor: '#0a507c',
     padding: 10,
     borderRadius: 30,
   },
@@ -139,11 +139,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#c2fbc2',
+    backgroundColor: '#4d918f',
     padding: 20,
   },
   modalText: {
-    fontSize: 24,
+    fontSize: 30,
+    letterSpacing: 1,
     fontWeight: 'bold',
     color: 'white',
     backgroundColor: '#6dcf81',
@@ -153,7 +154,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   closeButton: {
-    backgroundColor: '#4d918f',
+    backgroundColor: '#8ec3b3',
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 10,
@@ -163,5 +164,5 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#fff',
   },
-
 });
+
