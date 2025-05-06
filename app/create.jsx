@@ -1,7 +1,7 @@
+import { MaterialIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { MaterialIcons } from '@expo/vector-icons';
-import { Alert, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function Create() {
     const [title, setTitle] = useState('');
@@ -21,7 +21,7 @@ export default function Create() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={{paddingHorizontal: 20}}>
+            <View style={{ paddingHorizontal: 20 }}>
 
                 <Text style={styles.header}>Lägg till ny länk</Text>
 
@@ -56,9 +56,9 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        justifyContent: 'center',        
+        justifyContent: 'center',
         backgroundColor: '#333',
-    },  
+    },
     header: {
         fontSize: 24,
         fontWeight: '700',
