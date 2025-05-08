@@ -7,9 +7,9 @@ import CardLink from '../../components/CardLink';
 
 export default function ProfilePage() {
     const { data } = useLocalSearchParams();
-
     const [user, setUser] = useState({});
-
+    
+    //temporary data
     const users = [
         {
             uuid: "42bbe28a-49ce-4953-b660-4470da21eb23", name: 'John Doe', email: 'john@example.com', links: [
@@ -70,14 +70,18 @@ export default function ProfilePage() {
         }
     ];
 
+    //TODO: fetch user data from database
     const setUserData = () => {
         const user = users.find(user => user.uuid === data);
         setUser(user);
     }
 
+
+    //Set user data here
     useEffect(() => {
         setUserData();
     }, []);
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={{ paddingHorizontal: 20, flex: 1 }}>
@@ -95,7 +99,7 @@ export default function ProfilePage() {
                     )}
                 />
 
-                <TouchableOpacity style={styles.closeButton} onPress={() => router.push('/')}>
+                <TouchableOpacity style={styles.closeButton} onPress={() => router.push('/scan')}>
                     <MaterialIcons name="arrow-back" size={35} color="#f7ca90" />
                 </TouchableOpacity>
             </View>

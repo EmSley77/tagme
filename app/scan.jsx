@@ -67,7 +67,7 @@ export default function ScanScreen() {
             <View style={styles.overlay}>
                 <View style={styles.scanArea} />
             </View>
-            <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+            <TouchableOpacity style={styles.backButton} onPress={() => router.push('/')}>
                 <MaterialIcons name="arrow-back" size={40} color="#f7ca90" />
             </TouchableOpacity>
         </View>
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     },
     overlay: {
         ...StyleSheet.absoluteFillObject,
-        backgroundColor: 'rgba(0,0,0,0.5)',
+        backgroundColor: 'rgba(0, 0, 0, 0.55)',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -127,5 +127,6 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: '#f7ca90',
         backgroundColor: 'transparent',
+        borderRadius: 10,
     },
 });
