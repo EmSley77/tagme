@@ -34,7 +34,7 @@ const RootLayout = () => {
 
   if (isLoading) {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#444" }}>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#222" }}>
         <ActivityIndicator size="large" color="#f7ca89" />
       </View>
     );

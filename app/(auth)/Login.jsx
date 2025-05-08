@@ -91,7 +91,7 @@ export default function Login() {
 }
 const styles = StyleSheet.create({
   safeArea: {
-    backgroundColor: "#333",
+    backgroundColor: "#222",
     flex: 1,
   },
   container: {
