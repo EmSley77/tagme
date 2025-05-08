@@ -5,6 +5,8 @@ import { router } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
 import CardLink from '../../components/CardLink';
 
+
+//TODO disable camera when landing on this page
 export default function ProfilePage() {
     const { data } = useLocalSearchParams();
     const [user, setUser] = useState({});
