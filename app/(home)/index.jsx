@@ -98,7 +98,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#333", // White background for a clean, modern feel
+    backgroundColor: "#222", 
     paddingHorizontal: 20,
   },
   list: {
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   card: {
     borderWidth: 2,
     borderColor: '#f7ca90', // Charcoal gray for a soft border contrast
-    backgroundColor: '#222', // Light gray background to keep it subtle
+    backgroundColor: '#111', // Light gray background to keep it subtle
     borderRadius: 50, // Slightly less rounded for a more modern feel
     paddingVertical: 24,
     paddingHorizontal: 28,
@@ -135,10 +135,10 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   footer: {
-    backgroundColor: '#1A1A1A', // Dark gray footer for contrast
+    backgroundColor: '#1A1A1A', 
     borderRadius: 50,
     borderWidth: 2,
-    borderColor: '#E0E0E0', // Light gray border to complement footer
+    borderColor: '#E0E0E0', 
     padding: 10,
     marginBottom: 15,
     marginTop: 20,
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: "#333", // Light background for modals
+    backgroundColor: "#222", 
     padding: 20,
   },
   modalText: {

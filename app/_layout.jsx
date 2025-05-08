@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
 import { Stack, useRouter } from "expo-router";
+import React, { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 
 const RootLayout = () => {

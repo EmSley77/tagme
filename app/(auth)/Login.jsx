@@ -2,6 +2,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
+  Alert,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
@@ -9,7 +10,6 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  Alert,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -23,13 +23,13 @@ export default function Login() {
 
   const handleLogin = () => {
     if (email === "" || password === "") {
-      Alert.alert("Inloggning misslyckades", "Fyll i alla fält");
+      Alert.alert("Fyll i alla fält");
       return;
     }
     if (email === "test@test.com" && password === "test") {
       router.replace("/");
     } else {
-      setError("Fel email eller lösenord");
+      Alert.alert("Inloggning misslyckades", "Fel email eller lösenord");
     }
   };
 

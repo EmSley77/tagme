@@ -1,14 +1,43 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { CameraView, useCameraPermissions } from 'expo-camera';
-import { router } from 'expo-router';
-import { useEffect, useRef, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native';
+import { router, useFocusEffect } from 'expo-router';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Alert, Animated, StyleSheet, Text, TouchableOpacity, View, SafeAreaView } from 'react-native';
 
-//TODO disable camera when leaving this page
 export default function ScanScreen() {
     const [permission, requestPermission] = useCameraPermissions();
     const [scanned, setScanned] = useState(false);
+    const [isCameraActive, setIsCameraActive] = useState(true);
     const lastScanTime = useRef(null);
+    const scanAnimation = useRef(new Animated.Value(0)).current;
+
+    // Handle camera mounting/unmounting when screen focus changes
+    useFocusEffect(
+        useCallback(() => {
+            setIsCameraActive(true);
+            return () => {
+                setIsCameraActive(false);
+            };
+        }, [])
+    );
+
+    // Animation for scanning effect
+    useEffect(() => {
+        Animated.loop(
+            Animated.sequence([
+                Animated.timing(scanAnimation, {
+                    toValue: 1,
+                    duration: 1500,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(scanAnimation, {
+                    toValue: 0,
+                    duration: 1500,
+                    useNativeDriver: true,
+                }),
+            ])
+        ).start();
+    }, []);
 
     useEffect(() => {
         if (scanned) {
@@ -58,27 +87,72 @@ export default function ScanScreen() {
     }
 
     return (
-        <View style={styles.container}>
-            <CameraView
-                style={StyleSheet.absoluteFillObject}
-                facing="back"
-                barcodeScannerSettings={{ barcodeTypes: ['qr'] }}
-                onBarcodeScanned={scanned ? undefined : handleBarcodeScanned}
-            />
+        <SafeAreaView style={styles.container}>
+            <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginHorizontal: 20, marginTop: 20}}>
+                <Text style={styles.title}>Skanna QR-kod</Text>
+            </View>
+
+            {isCameraActive && (
+                <CameraView
+                    ratio='1:1'
+                    facing="back"
+                    style={{
+                        flex: 1,
+                        backgroundColor: "#222",
+                        height: "50%",
+                        width: "90%",
+                        top: "15%",
+                        alignSelf: "center",
+                        borderRadius: 10,
+                        overflow: "hidden",
+                        position: "absolute",
+                    }}
+                    barcodeScannerSettings={{
+                        barcodeTypes: ['qr'],
+                        interval: 5000,
+                        checkInverted: false,
+                    }}
+                    onBarcodeScanned={scanned ? undefined : handleBarcodeScanned}
+                />
+            )}
             <View style={styles.overlay}>
-                <View style={styles.scanArea} />
+                <View style={styles.scanArea}>
+                    <Animated.View
+                        style={[
+                            styles.scanLine,
+                            {
+                                opacity: scanAnimation,
+                                transform: [{
+                                    translateY: scanAnimation.interpolate({
+                                        inputRange: [0, 1],
+                                        outputRange: [0, 300]
+                                    })
+                                }]
+                            }
+                        ]}
+                    />
+                </View>
             </View>
             <TouchableOpacity style={styles.backButton} onPress={() => router.push('/')}>
                 <MaterialIcons name="arrow-back" size={40} color="#f7ca90" />
             </TouchableOpacity>
-        </View>
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#333',
+        backgroundColor: '#222',
+    },
+    title: {
+        fontFamily: "Poppins-Bold",
+        letterSpacing: 1,
+        textAlign: "center",
+        width: "100%",
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#f7ca90',
     },
     centered: {
         flex: 1,
@@ -108,26 +182,45 @@ const styles = StyleSheet.create({
     },
     backButton: {
         position: 'absolute',
-        top: 40,
-        left: 20,
+        bottom: 40,
         backgroundColor: '#111',
         borderWidth: 2,
         borderColor: '#f7ca90',
         borderRadius: 32,
         padding: 12,
+        width: "90%",
+        alignItems: 'center',
+        alignSelf: 'center',
     },
     overlay: {
-        ...StyleSheet.absoluteFillObject,
-        backgroundColor: 'rgba(0, 0, 0, 0.55)',
+        position: 'absolute',
+        top: '15%',
+        width: '100%',
+        height: '50%',
         justifyContent: 'center',
         alignItems: 'center',
     },
     scanArea: {
-        width: 250,
-        height: 250,
+        width: '90%',
+        height: '100%',
         borderWidth: 2,
         borderColor: '#f7ca90',
-        backgroundColor: 'transparent',
         borderRadius: 10,
+        overflow: 'hidden',
+        position: 'relative',
+    },
+    scanLine: {
+        position: 'absolute',
+        width: '100%',
+        height: 3,
+        backgroundColor: '#f7ca90',
+        shadowColor: '#f7ca90',
+        shadowOffset: {
+            width: 0,
+            height: 0,
+        },
+        shadowOpacity: 0.8,
+        shadowRadius: 15,
+        elevation: 8,
     },
 });
