@@ -33,12 +33,13 @@ export default function HomeScreen() {
   const user = {
     id: 1,
     name: 'Emanuel Sleyman',
+    uuid: '42bbe28a-49ce-4953-b660-4470da21eb23',
   }
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ paddingHorizontal: 20, flex: 1 }}>
 
-        {/* Modal to show phone number */}
+        {/* Modal to show Account */}
         <Modal
           animationType="fade"
           visible={showModal}
