@@ -1,5 +1,5 @@
 import { useLocalSearchParams } from 'expo-router';
-import { Text, View, StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, SafeAreaView, FlatList, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { useState, useEffect } from 'react';
 import { router } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -8,7 +8,8 @@ import CardLink from '../../components/CardLink';
 export default function ProfilePage() {
     const { data } = useLocalSearchParams();
     const [user, setUser] = useState({});
-    
+    const [isLoading, setIsLoading] = useState(true);
+
     //temporary data
     const users = [
         {
@@ -70,10 +71,19 @@ export default function ProfilePage() {
         }
     ];
 
+
     //TODO: fetch user data from database
     const setUserData = () => {
+
         const user = users.find(user => user.uuid === data);
-        setUser(user);
+        if (user) {
+            setIsLoading(false);
+            setUser(user);
+        } else {
+            setIsLoading(false);
+            Alert.alert('User not found', 'Please scan a valid QR code');
+            router.push('/');
+        }
     }
 
 
@@ -82,12 +92,16 @@ export default function ProfilePage() {
         setUserData();
     }, []);
 
+    if (isLoading) {
+        return <View style={styles.container}><ActivityIndicator size="large" color="#f7ca90" /></View>;
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={{ paddingHorizontal: 20, flex: 1 }}>
                 <View style={styles.modalTextContainer}>
                     <Text style={styles.modalText}>{user.name}</Text>
-                    <Text style={[styles.modalText, {fontSize: 16}]}>{user.email}</Text>
+                    <Text style={[styles.modalText, { fontSize: 16 }]}>{user.email}</Text>
                 </View>
 
                 <FlatList
