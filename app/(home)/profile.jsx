@@ -1,11 +1,13 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from 'expo-router';
-import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Modal, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useUser } from '../../context/UserContext';
+import { useState } from 'react';
 
 export default function ProfileScreen() {
   const { user, setUser } = useUser();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -42,6 +44,60 @@ export default function ProfileScreen() {
           <View style={styles.infoCard}>
             <MaterialIcons name="security" size={24} color="#f7ca90" />
             <Text style={styles.infoText}>••••••••</Text>
+            <TouchableOpacity 
+              style={{
+                padding: 8,
+                borderRadius: 8,
+                backgroundColor: '#333',
+                borderWidth: 1,
+                borderColor: '#f7ca90'
+              }}
+              onPress={() => setShowPassword(!showPassword)}
+            >
+              <MaterialIcons 
+                name={showPassword ? "visibility-off" : "visibility"} 
+                size={24} 
+                color="#f7ca90" 
+              />
+            </TouchableOpacity>
+            <Modal 
+              visible={showPassword} 
+              transparent={true} 
+              animationType="fade"
+            >
+              <View style={styles.modalContainer}>
+                <View style={{
+                  backgroundColor: '#333',
+                  padding: 20,
+                  borderRadius: 12,
+                  borderWidth: 1,
+                  borderColor: '#f7ca90',
+                  alignItems: 'center'
+                }}>
+                  <Text style={styles.modalText}>Password: {user.password}</Text>
+                  <TouchableOpacity 
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      backgroundColor: '#444',
+                      padding: 12,
+                      borderRadius: 8,
+                      marginTop: 16,
+                      borderWidth: 1,
+                      borderColor: '#f7ca90'
+                    }}
+                    onPress={() => setShowPassword(false)}
+                  >
+                    <MaterialIcons name="close" size={24} color="#f7ca90" />
+                    <Text style={{
+                      color: '#fff',
+                      marginLeft: 8,
+                      fontSize: 16
+                    }}>Close</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
           </View>
         </View>
 
@@ -79,6 +135,16 @@ const styles = StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
     padding: 20,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalText: {
+    fontSize: 24,
+    color: '#fff',
   },
   header: {
     alignItems: 'center',
