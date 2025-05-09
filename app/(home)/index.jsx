@@ -2,6 +2,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import {
+  ActivityIndicator,
   FlatList,
   Modal,
   SafeAreaView,
@@ -11,8 +12,10 @@ import {
   View,
 } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
+import { useUser } from '../../context/UserContext';
 
 export default function HomeScreen() {
+  const { user } = useUser();
 
   const [showModal, setShowModal] = useState(false);
   const [links] = useState([
@@ -30,11 +33,10 @@ export default function HomeScreen() {
     },
   ]);
 
-  const user = {
-    id: 1,
-    name: 'Emanuel Sleyman',
-    uuid: '42bbe28a-49ce-4953-b660-4470da21eb23',
+  if (!user) {
+    return <ActivityIndicator size="large" color="#f7ca90" />;
   }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ paddingHorizontal: 20, flex: 1 }}>
@@ -48,7 +50,10 @@ export default function HomeScreen() {
           <View style={styles.modalContainer}>
             <View style={styles.modalTextContainer}>
               <Text style={styles.modalText}>Profil</Text>
-              <QRCode value={"https://www.linkedin.com/in/emanuel-sleyman-660552293/"} size={200} color="#f7ca90" />
+              <QRCode value={user.uuid} size={200} color="#f7ca90" onError={() => {
+                console.log("Error");
+              }} 
+              />
             </View>
             <TouchableOpacity style={styles.closeButton} onPress={() => setShowModal(false)}>
               <MaterialIcons name="close" size={35} color="#f7ca90" />

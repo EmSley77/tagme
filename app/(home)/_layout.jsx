@@ -3,6 +3,7 @@ import { Tabs } from "expo-router";
 
 export default function TabLayout() {
   return (
+
     <Tabs
       initialRouteName="index"
       screenOptions={{
@@ -51,7 +52,7 @@ export default function TabLayout() {
           ),
         }}
       />
-  
+
     </Tabs>
   );
 }
